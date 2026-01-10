@@ -22,8 +22,17 @@ def root():
 #     return {"error": "Student not found"}
 
 @app.get("/student/{student_id}")
-def get_student(student_id: int = Path(None, description="The ID of the student to retrieve")):
+# For Path we have gt(greater than), lt(less than), ge(greater equal), le(less equal), etc.
+def get_student(student_id: int = Path(None, description="The ID of the student to retrieve"), gt=0):
     student = students.get(student_id)
     if student:
         return student
+    return {"error": "Student not found"}
+
+# query parameter
+@app.get("/student/get-by-name")
+def get_student_by_name(name: str):
+    for student_id in students:
+        if students[student_id]["name"].lower() == name.lower():
+            return students[student_id]
     return {"error": "Student not found"}
