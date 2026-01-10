@@ -22,7 +22,7 @@ def root():
 #     return {"error": "Student not found"}
 
 @app.get("/student/{student_id}")
-def get_student(student_id: int = Path(None)):
+def get_student(student_id: int = Path(None, description="The ID of the student to retrieve")):
     student = students.get(student_id)
     if student:
         return student
