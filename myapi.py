@@ -44,3 +44,17 @@ def create_student(student_id: int, student: dict):
         return {"error": "Student ID already exists"}
     students[student_id] = student
     return students[student_id]
+
+# request body + path parameter + query parameter
+@app.put("/student/{student_id}")
+def update_student(
+    student_id: int,
+    student: dict,
+    name: Optional[str] = None
+):
+    if student_id not in students:
+        return {"error": "Student not found"}
+    students[student_id] = student
+    if name:
+        students[student_id]["name"] = name
+    return students[student_id] 
